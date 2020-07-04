@@ -10,6 +10,7 @@ function App() {
   const handleSubmit = e => {
     e.preventDefault()
     addTodo(value)
+    setValue('')
   }
 
   const addTodo = text => {
@@ -18,17 +19,27 @@ function App() {
     console.log(newTodos)
   }
 
+  const removeTodo = index => {
+    const newTodos = [...todos]
+    newTodos.splice(index, 1)
+    setTodos(newTodos)
+  }
+
   return (
     <div className="App">
       <Container className="mt-4">
         <h1>Todo List</h1>
         <Form onSubmit={handleSubmit}>
           <InputGroup>
-            <Input type="text"
+            <Input
+              type="text"
               value={value}
-              onChange={e => setValue(e.target.value)} />
+              onChange={(e) => setValue(e.target.value)}
+            />
             <InputGroupAddon addonType="append">
-              <Button type="submit" color="primary">追加</Button>
+              <Button type="submit" color="primary">
+                追加
+              </Button>
             </InputGroupAddon>
           </InputGroup>
         </Form>
@@ -36,13 +47,15 @@ function App() {
       <Container>
         <Table>
           <tbody>
-            {todos && todos.map((todo, index) => (
-              <tr key={index}>
-                <th className="text-left">
-                  {todo}
-                </th>
-              </tr>
-            ))}
+            {todos &&
+              todos.map((todo, index) => (
+                <tr key={index}>
+                  <th className="text-left">{todo}</th>
+                  <td className="text-right">
+                    <Button color="danger" onClick={() => removeTodo(index)}>削除</Button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </Table>
       </Container>
