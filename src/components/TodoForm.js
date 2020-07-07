@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, InputGroup, Input, InputGroupAddon, Button } from 'reactstrap';
 
-function TodoForm(addTodo) {
+function TodoForm({addTodo}) {
   const [value, setValue] = useState('')
 
   const handleSubmit = e => {
